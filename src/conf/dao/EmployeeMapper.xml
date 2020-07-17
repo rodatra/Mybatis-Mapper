@@ -44,11 +44,11 @@ public Employee getEmpById(Integer id);
 		databaseId="mysql">
 		select * from tbl_employee where id = #{id}
 	</select>
-	<select id="getEmpById" resultType="gk.bean.Employee"
-		databaseId="oracle">
-		select EMPLOYEE_ID id,LAST_NAME	lastName,EMAIL email 
-		from employees where EMPLOYEE_ID=#{id}
-	</select>
+<!--	<select id="getEmpById" resultType="gk.bean.Employee"-->
+<!--		databaseId="oracle">-->
+<!--		select EMPLOYEE_ID id,LAST_NAME	lastName,EMAIL email -->
+<!--		from employees where EMPLOYEE_ID=#{id}-->
+<!--	</select>-->
 	
 	<!-- public void addEmp(Employee employee); -->
 	<!-- parameterType：参数类型，可以省略， 

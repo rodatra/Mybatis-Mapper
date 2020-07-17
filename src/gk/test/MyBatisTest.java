@@ -59,56 +59,56 @@ public class MyBatisTest {
 	 * 
 	 * @throws IOException
 	 */
-	@Test
-	public void test() throws IOException {
-
-		// 2、获取sqlSession实例，能直接执行已经映射的sql语句
-		// sql的唯一标识：statement Unique identifier matching the statement to use.
-		// 执行sql要用的参数：parameter A parameter object to pass to the statement.
-		SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
-
-		SqlSession openSession = sqlSessionFactory.openSession();
-		try {
-			Employee employee = openSession.selectOne(
-					"com.atguigu.mybatis.EmployeeMapper.selectEmp", 1);
-			System.out.println(employee);
-		} finally {
-			openSession.close();
-		}
-
-	}
-
-	@Test
-	public void test01() throws IOException {
-		// 1、获取sqlSessionFactory对象
-		SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
-		// 2、获取sqlSession对象
-		SqlSession openSession = sqlSessionFactory.openSession();
-		try {
-			// 3、获取接口的实现类对象
-			//会为接口自动的创建一个代理对象，代理对象去执行增删改查方法
-			EmployeeMapper mapper = openSession.getMapper(EmployeeMapper.class);
-			Employee employee = mapper.getEmpById(1);
-			System.out.println(mapper.getClass());
-			System.out.println(employee);
-		} finally {
-			openSession.close();
-		}
-
-	}
+//	@Test
+//	public void test() throws IOException {
+//
+//		// 2、获取sqlSession实例，能直接执行已经映射的sql语句
+//		// sql的唯一标识：statement Unique identifier matching the statement to use.
+//		// 执行sql要用的参数：parameter A parameter object to pass to the statement.
+//		SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
+//
+//		SqlSession openSession = sqlSessionFactory.openSession();
+//		try {
+//			Employee employee = openSession.selectOne(
+//					"gk.dao.EmployeeMapper.getEmpById", 1);
+//			System.out.println(employee);
+//		} finally {
+//			openSession.close();
+//		}
+//
+//	}
+//
+//	@Test
+//	public void test01() throws IOException {
+//		// 1、获取sqlSessionFactory对象
+//		SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
+//		// 2、获取sqlSession对象
+//		SqlSession openSession = sqlSessionFactory.openSession();
+//		try {
+//			// 3、获取接口的实现类对象
+//			//会为接口自动的创建一个代理对象，代理对象去执行增删改查方法
+//			EmployeeMapper mapper = openSession.getMapper(EmployeeMapper.class);
+//			Employee employee = mapper.getEmpById(1);
+//			System.out.println(mapper.getClass());
+//			System.out.println(employee);
+//		} finally {
+//			openSession.close();
+//		}
+//
+//	}
 	
-	@Test
-	public void test02() throws IOException{
-		SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
-		SqlSession openSession = sqlSessionFactory.openSession();
-		try{
-			EmployeeMapperAnnotation mapper = openSession.getMapper(EmployeeMapperAnnotation.class);
-			Employee empById = mapper.getEmpById(1);
-			System.out.println(empById);
-		}finally{
-			openSession.close();
-		}
-	}
+//	@Test
+//	public void test02() throws IOException{
+//		SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
+//		SqlSession openSession = sqlSessionFactory.openSession();
+//		try{
+//			EmployeeMapperAnnotation mapper = openSession.getMapper(EmployeeMapperAnnotation.class);
+//			Employee empById = mapper.getEmpById(1);
+//			System.out.println(empById);
+//		}finally{
+//			openSession.close();
+//		}
+//	}
 	
 	/**
 	 * 测试增删改
@@ -128,17 +128,17 @@ public class MyBatisTest {
 		
 		try{
 			EmployeeMapper mapper = openSession.getMapper(EmployeeMapper.class);
-			//测试添加
-//			Employee employee = new Employee(null, "jerry4",null, "1");
-//			mapper.addEmp(employee);
-//			System.out.println(employee.getId());
+//			测试添加
+			Employee employee = new Employee(null, "jerry4",null, "1");
+			mapper.addEmp(employee);
+			System.out.println(employee.getId());
 			
 			//测试修改
 //			Employee employee = new Employee(1, "Tom", "jerry@atguigu.com", "0");
 //			boolean updateEmp = mapper.updateEmp(employee);
 //			System.out.println(updateEmp);
 			//测试删除
-			mapper.deleteEmpById(2);
+//			mapper.deleteEmpById(2);
 			//2、手动提交数据
 			openSession.commit();
 		}finally{
@@ -158,23 +158,23 @@ public class MyBatisTest {
 		try{
 			EmployeeMapper mapper = openSession.getMapper(EmployeeMapper.class);
 			//Employee employee = mapper.getEmpByIdAndLastName(1, "tom");
-			Map<String, Object> map = new HashMap<>();
-			map.put("id", 2);
-			map.put("lastName", "Tom");
-			map.put("tableName", "tbl_employee");
-			Employee employee = mapper.getEmpByMap(map);
+//			Map<String, Object> map = new HashMap<>();
+//			map.put("id", 1);
+//			map.put("lastName", "Tom");
+//			map.put("tableName", "tbl_employee");
+//			Employee employee = mapper.getEmpByMap(map);
+//
+//			System.out.println(employee);
 			
-			System.out.println(employee);
+//			List<Employee> like = mapper.getEmpsByLastNameLike("%e%");
+//			for (Employee employee : like) {
+//				System.out.println(employee);
+//			}
 			
-			/*List<Employee> like = mapper.getEmpsByLastNameLike("%e%");
-			for (Employee employee : like) {
-				System.out.println(employee);
-			}*/
-			
-			/*Map<String, Object> map = mapper.getEmpByIdReturnMap(1);
-			System.out.println(map);*/
-			/*Map<String, Employee> map = mapper.getEmpByLastNameLikeReturnMap("%r%");
-			System.out.println(map);*/
+//			Map<String, Object> map = mapper.getEmpByIdReturnMap(1);
+//			System.out.println(map);
+			Map<String, Employee> map = mapper.getEmpByLastNameLikeReturnMap("%r%");
+			System.out.println(map);
 			
 		}finally{
 			openSession.close();
@@ -187,20 +187,17 @@ public class MyBatisTest {
 		SqlSession openSession = sqlSessionFactory.openSession();
 		try{
 			EmployeeMapperPlus mapper = openSession.getMapper(EmployeeMapperPlus.class);
-			/*Employee empById = mapper.getEmpById(1);
-			System.out.println(empById);*/
-			/*Employee empAndDept = mapper.getEmpAndDept(1);
-			System.out.println(empAndDept);
-			System.out.println(empAndDept.getDept());*/
-			Employee employee = mapper.getEmpByIdStep(3);
+//			Employee empById = mapper.getEmpById(1);
+//			System.out.println(empById);
+//			Employee empAndDept = mapper.getEmpAndDept(1);
+//			System.out.println(empAndDept);
+//			System.out.println(empAndDept.getDept());
+			Employee employee = mapper.getEmpByIdStep(1);
 			System.out.println(employee);
-			//System.out.println(employee.getDept());
 			System.out.println(employee.getDept());
 		}finally{
 			openSession.close();
 		}
-		
-		
 	}
 	
 	@Test
@@ -210,12 +207,12 @@ public class MyBatisTest {
 		
 		try{
 			DepartmentMapper mapper = openSession.getMapper(DepartmentMapper.class);
-			/*Department department = mapper.getDeptByIdPlus(1);
+			Department department = mapper.getDeptByIdPlus(1);
 			System.out.println(department);
-			System.out.println(department.getEmps());*/
-			Department deptByIdStep = mapper.getDeptByIdStep(1);
-			System.out.println(deptByIdStep.getDepartmentName());
-			System.out.println(deptByIdStep.getEmps());
+			System.out.println(department.getEmps());
+//			Department deptByIdStep = mapper.getDeptByIdStep(1);
+//			System.out.println(deptByIdStep.getDepartmentName());
+//			System.out.println(deptByIdStep.getEmps());
 		}finally{
 			openSession.close();
 		}
